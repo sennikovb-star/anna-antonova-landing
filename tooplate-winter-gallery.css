@@ -71,14 +71,12 @@ nav {
 	color: var(--color-winter-blue);
 }
 
-.logo:hover .logo-icon {
-	opacity: 1;
-}
-
-.logo-icon {
-	width: 24px;
-	height: 24px;
-	opacity: 0.6;
+.logo-pearl {
+	width: 18px;
+	height: 18px;
+	object-fit: contain;
+	display: inline-block;
+	flex: 0 0 18px;
 }
 
 .nav-links {
@@ -100,13 +98,17 @@ nav {
 }
 
 .nav-links a::before {
-	content: '❄';
+	content: '';
 	position: absolute;
 	top: 0;
 	left: 50%;
 	transform: translateX(-50%);
-	font-size: 0.5rem;
-	color: #d6d1c4;
+	width: 8px;
+	height: 8px;
+	background-image: url('/images/pearl.png');
+	background-size: contain;
+	background-repeat: no-repeat;
+	background-position: center;
 	opacity: 0;
 	transition: opacity 0.3s ease;
 }
@@ -848,10 +850,7 @@ footer a:hover {
 		font-size: 1.5rem;
 	}
 
-		stat-label {
+	.stat-label {
 		font-size: 0.7rem;
 	}
 }
-
-
-
