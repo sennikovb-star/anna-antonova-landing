@@ -39,11 +39,11 @@ nav {
 	top: 0;
 	left: 0;
 	right: 0;
-	background: rgba(255, 255, 255, 0.95);
-	backdrop-filter: blur(10px);
+	background: #f2ede8;
+	backdrop-filter: none;
 	padding: 1.5rem 2rem;
 	z-index: 1000;
-	border-bottom: 1px solid rgba(123, 168, 189, 0.1);
+	border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
 
 .nav-container {
@@ -854,4 +854,5 @@ footer a:hover {
 		font-size: 0.7rem;
 	}
 }
+
 
