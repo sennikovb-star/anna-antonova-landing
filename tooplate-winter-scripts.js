@@ -190,4 +190,37 @@ contactForm.addEventListener('submit', (e) => {
 
    // Reset form
    contactForm.reset();
+
 });
+(function () {
+  const KEY = "tg_modal_shown_v1";
+  const modal = document.getElementById("tgModal");
+  if (!modal) return;
+
+  function openModal() {
+    modal.classList.add("is-open");
+    modal.setAttribute("aria-hidden", "false");
+    document.documentElement.style.overflow = "hidden";
+  }
+
+  function closeModal() {
+    modal.classList.remove("is-open");
+    modal.setAttribute("aria-hidden", "true");
+    document.documentElement.style.overflow = "";
+    try { sessionStorage.setItem(KEY, "1"); } catch (e) {}
+  }
+
+  try {
+    if (sessionStorage.getItem(KEY) === "1") return;
+  } catch (e) {}
+
+  setTimeout(openModal, 12000);
+
+  modal.addEventListener("click", (e) => {
+    if (e.target && e.target.hasAttribute("data-tg-close")) closeModal();
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && modal.classList.contains("is-open")) closeModal();
+  });
+})();
