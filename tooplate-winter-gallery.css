@@ -138,8 +138,15 @@ nav {
 	left: 0;
 	right: 0;
 	bottom: 0;
-	background: rgba(255, 255, 255, 0.55);
+	background: linear-gradient(
+		to bottom,
+		#ede7ea 0%,
+		rgba(237, 231, 234, 0) 18%,
+		rgba(237, 231, 234, 0) 82%,
+		#ede7ea 100%
+	);
 	z-index: 1;
+	pointer-events: none;
 }
 
 .hero::after {
@@ -854,6 +861,7 @@ footer a:hover {
 		font-size: 0.7rem;
 	}
 }
+
 
 
 
