@@ -886,12 +886,27 @@ footer a:hover {
   margin: 0 auto;
   top: 14vh;
 
-  border-radius: 22px;
   background: #ede7ea;
-  border: none;
+  border-radius: 28px;
+  overflow: visible;
 
-  box-shadow: 0 30px 90px rgba(0,0,0,0.14);
-  overflow: hidden;
+  /* НЕТ границ, НЕТ теней */
+  border: none;
+  box-shadow: none;
+
+  /* МАСКА — плавное исчезновение на 25px */
+  -webkit-mask-image: radial-gradient(
+    ellipse at center,
+    rgba(0,0,0,1) 0%,
+    rgba(0,0,0,1) calc(100% - 25px),
+    rgba(0,0,0,0) 100%
+  );
+  mask-image: radial-gradient(
+    ellipse at center,
+    rgba(0,0,0,1) 0%,
+    rgba(0,0,0,1) calc(100% - 25px),
+    rgba(0,0,0,0) 100%
+  );
 }
 
 /* растворение контура на 25px */
@@ -976,3 +991,4 @@ footer a:hover {
   .tg-title{ font-size:26px; }
   .tg-body{ padding: 28px; }
 }
+
