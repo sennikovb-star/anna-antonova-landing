@@ -141,7 +141,7 @@ nav {
 	background: linear-gradient(
 		to bottom,
 		#ede7ea 0%,
-		rgba(237, 231, 234, 0) 18%,
+		rgba(237, 231, 234, 0) 32%,
 		rgba(237, 231, 234, 0) 82%,
 		#ede7ea 100%
 	);
@@ -861,6 +861,7 @@ footer a:hover {
 		font-size: 0.7rem;
 	}
 }
+
 
 
 
