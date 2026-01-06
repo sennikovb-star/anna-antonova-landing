@@ -105,8 +105,8 @@ nav {
 	top: 0;
 	left: 50%;
 	transform: translateX(-50%);
-	font-size: 0.85rem;
-	color: var(--color-winter-blue);
+	font-size: 0.5rem;
+	color: #d6d1c4;
 	opacity: 0;
 	transition: opacity 0.3s ease;
 }
@@ -852,5 +852,6 @@ footer a:hover {
 		font-size: 0.7rem;
 	}
 }
+
 
 
