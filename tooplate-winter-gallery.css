@@ -27,7 +27,7 @@ https://www.tooplate.com/view/2151-winter-gallery
 
 body {
 	font-family: var(--font-sans);
-	background: #f2ede8;
+	background: #ede7ea;
 	color: var(--color-charcoal);
 	line-height: 1.6;
 	min-height: 100vh;
@@ -39,7 +39,7 @@ nav {
 	top: 0;
 	left: 0;
 	right: 0;
-	background: #f2ede8;
+	background: #ede7ea;
 	backdrop-filter: none;
 	padding: 1.5rem 2rem;
 	z-index: 1000;
@@ -854,5 +854,6 @@ footer a:hover {
 		font-size: 0.7rem;
 	}
 }
+
 
 
