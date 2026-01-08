@@ -1,10 +1,4 @@
-/* JavaScript Document
-
-Tooplate 2151 Winter Gallery
-
-https://www.tooplate.com/view/2151-winter-gallery
-
-*/
+/* JavaScript Document */
 
 // Mobile Menu Toggle
 const mobileMenuBtn = document.getElementById('mobileMenuBtn');
