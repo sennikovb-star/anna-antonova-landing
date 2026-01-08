@@ -218,3 +218,209 @@ contactForm.addEventListener('submit', (e) => {
     if (e.key === "Escape" && modal.classList.contains("is-open")) closeModal();
   });
 })();
+
+// Hover Sound Effect
+(function() {
+  // Create a pool of audio instances for smooth playback
+  const soundPool = [];
+  const poolSize = 10; // Increased pool size for fast hovering
+  let canPlaySound = false;
+  const soundFile = '/sounds/forward-sound-game-start.mp3';
+  
+  // Preload sound pool
+  for (let i = 0; i < poolSize; i++) {
+    const sound = new Audio(soundFile);
+    sound.volume = 0.4;
+    sound.preload = 'auto';
+    // Force reload to get updated file
+    sound.load();
+    soundPool.push(sound);
+  }
+  
+  // Enable sound after user interaction
+  function enableSound() {
+    canPlaySound = true;
+    // Reload all sounds to ensure fresh file
+    soundPool.forEach(sound => {
+      sound.load();
+    });
+  }
+  
+  // Enable on first user interaction
+  ['click', 'touchstart', 'mousedown'].forEach(event => {
+    document.addEventListener(event, enableSound, { once: true });
+  });
+
+  function playHoverSound() {
+    if (!canPlaySound) return;
+    
+    // Find an available sound from the pool (prefer paused/ended)
+    let availableSound = soundPool.find(sound => 
+      sound.paused || sound.ended
+    );
+    
+    // If all sounds are playing, find the one that's been playing longest
+    if (!availableSound) {
+      availableSound = soundPool.reduce((oldest, current) => {
+        return (current.currentTime > oldest.currentTime) ? current : oldest;
+      });
+      availableSound.pause();
+      availableSound.currentTime = 0;
+    }
+    
+    if (availableSound) {
+      // Reset and play immediately
+      availableSound.currentTime = 0;
+      availableSound.pause(); // Ensure it's stopped
+      availableSound.currentTime = 0; // Reset again
+      
+      // Play with minimal delay
+      const playPromise = availableSound.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(err => {
+          // Ignore play errors
+        });
+      }
+    }
+  }
+
+  // Add hover sound to all clickable elements
+  const clickableSelectors = [
+    'a',
+    'button',
+    '.gallery-item',
+    '.filter-btn',
+    '.preloader-btn',
+    '.tg-btn',
+    '.sound-toggle',
+    '.icon-content a',
+    '.logo'
+  ];
+
+  clickableSelectors.forEach(selector => {
+    document.querySelectorAll(selector).forEach(element => {
+      element.addEventListener('mouseenter', () => {
+        playHoverSound();
+      });
+    });
+  });
+
+  // Also add to dynamically created elements
+  const observer = new MutationObserver(mutations => {
+    mutations.forEach(mutation => {
+      mutation.addedNodes.forEach(node => {
+        if (node.nodeType === 1) { // Element node
+          clickableSelectors.forEach(selector => {
+            if (node.matches && node.matches(selector)) {
+              node.addEventListener('mouseenter', () => {
+                playHoverSound();
+              });
+            }
+            // Also check children
+            node.querySelectorAll && node.querySelectorAll(selector).forEach(child => {
+              child.addEventListener('mouseenter', () => {
+                playHoverSound();
+              });
+            });
+          });
+        }
+      });
+    });
+  });
+
+  observer.observe(document.body, {
+    childList: true,
+    subtree: true
+  });
+})();
+
+// Audio System
+(function() {
+  const audioPreloader = document.getElementById('audioPreloader');
+  const enterWithAudio = document.getElementById('enterWithAudio');
+  const enterWithoutAudio = document.getElementById('enterWithoutAudio');
+  const soundToggle = document.getElementById('soundToggle');
+  
+  if (!audioPreloader) return;
+
+  const audio = new Audio('/sounds/841334__josefpres__piano-loops-199-octave-down-short-loop-120-bpm.wav');
+  audio.loop = true;
+  audio.volume = 0.15;
+  
+  let isSoundEnabled = false;
+  let hasEntered = false;
+
+  function hidePreloader() {
+    audioPreloader.style.opacity = '0';
+    setTimeout(() => {
+      audioPreloader.style.display = 'none';
+      hasEntered = true;
+    }, 500);
+  }
+
+  function playAudio() {
+    if (isSoundEnabled) {
+      audio.play().catch(err => {
+        console.log('Audio play failed:', err);
+      });
+    }
+  }
+
+  function stopAudio() {
+    audio.pause();
+    audio.currentTime = 0;
+  }
+
+  function showSoundToggle() {
+    if (soundToggle) {
+      setTimeout(() => {
+        soundToggle.style.display = 'flex';
+      }, 500);
+    }
+  }
+
+  enterWithAudio.addEventListener('click', () => {
+    isSoundEnabled = true;
+    hidePreloader();
+    showSoundToggle();
+    setTimeout(() => {
+      playAudio();
+    }, 100);
+  });
+
+  enterWithoutAudio.addEventListener('click', () => {
+    isSoundEnabled = false;
+    hidePreloader();
+    showSoundToggle();
+  });
+
+  if (soundToggle) {
+    soundToggle.addEventListener('click', () => {
+      isSoundEnabled = !isSoundEnabled;
+      
+      if (isSoundEnabled) {
+        playAudio();
+        soundToggle.classList.add('sound-on');
+        soundToggle.innerHTML = `
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M11 5L6 9H2v6h4l5 4V5z"></path>
+            <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+          </svg>
+        `;
+      } else {
+        stopAudio();
+        soundToggle.classList.remove('sound-on');
+        soundToggle.innerHTML = `
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M11 5L6 9H2v6h4l5 4V5z"></path>
+            <line x1="23" y1="9" x2="17" y2="15"></line>
+            <line x1="17" y1="9" x2="23" y2="15"></line>
+          </svg>
+        `;
+      }
+    });
+    
+    // Hide toggle until user enters
+    soundToggle.style.display = 'none';
+  }
+})();

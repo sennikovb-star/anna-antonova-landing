@@ -26,6 +26,18 @@ body {
 	color: var(--color-charcoal);
 	line-height: 1.6;
 	min-height: 100vh;
+	position: relative;
+}
+
+#pearlCanvas {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	pointer-events: none;
+	z-index: 9999;
+	mix-blend-mode: multiply;
 }
 
 /* Navigation */
@@ -45,9 +57,28 @@ nav {
 	max-width: 1400px;
 	margin: 0 auto;
 	display: flex;
-	justify-content: space-between;
 	align-items: center;
 	position: relative;
+}
+
+.nav-container .logo {
+	flex-shrink: 0;
+	margin-right: auto;
+}
+
+.nav-container .mobile-menu-btn {
+	flex-shrink: 0;
+	margin-left: auto;
+}
+
+.nav-container .nav-links {
+	flex-shrink: 0;
+}
+
+.nav-container .sound-toggle,
+.nav-container .example-2 {
+	flex-shrink: 0;
+	margin-left: 1rem;
 }
 
 .logo {
@@ -981,9 +1012,13 @@ ul {
   height: 100%;
 }
 
-.example-2 .icon-content a[data-social="telegram"] .filled,
+.example-2 .icon-content a[data-social="telegram"] .filled {
+  background-color: #a8d0e6;
+}
+
 .example-2 .icon-content a[data-social="telegram"] ~ .tooltip {
-  background-color: #0088cc;
+  background-color: #a8d0e6;
+  color: #fff;
 }
 
 .telegram-center {
@@ -997,6 +1032,131 @@ ul {
 @media (max-width: 768px) {
   .telegram-center {
     display: none;
+  }
+}
+
+/* Audio Preloader */
+.audio-preloader {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #ede7ea;
+  z-index: 10000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: opacity 0.5s ease;
+}
+
+.preloader-content {
+  text-align: center;
+  padding: 2rem;
+}
+
+.preloader-content h2 {
+  font-family: var(--font-serif);
+  font-size: 3.5rem;
+  font-weight: 300;
+  color: var(--color-slate);
+  margin-bottom: 1rem;
+  letter-spacing: 3px;
+}
+
+.preloader-content p {
+  font-size: 1.1rem;
+  color: var(--color-blue);
+  font-weight: 300;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 3rem;
+}
+
+.preloader-buttons {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.preloader-btn {
+  padding: 1rem 2.5rem;
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  font-weight: 300;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  border: 1px solid var(--color-blue);
+  background: var(--color-blue);
+  color: var(--color-white);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 2px;
+}
+
+.preloader-btn:hover {
+  background: transparent;
+  color: var(--color-blue);
+}
+
+.preloader-btn-ghost {
+  background: transparent;
+  color: var(--color-blue);
+}
+
+.preloader-btn-ghost:hover {
+  background: var(--color-blue);
+  color: var(--color-white);
+}
+
+/* Sound Toggle */
+.sound-toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--color-slate);
+  background: transparent;
+  color: var(--color-slate);
+  cursor: pointer;
+  border-radius: 50%;
+  transition: all 0.3s ease;
+  flex-shrink: 0;
+}
+
+.sound-toggle:hover {
+  background: var(--color-blue);
+  color: var(--color-white);
+  border-color: var(--color-blue);
+}
+
+.sound-toggle.sound-on {
+  background: var(--color-blue);
+  color: var(--color-white);
+  border-color: var(--color-blue);
+}
+
+@media (max-width: 768px) {
+  .preloader-content h2 {
+    font-size: 2.5rem;
+  }
+  
+  .preloader-buttons {
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .preloader-btn {
+    width: 100%;
+    max-width: 250px;
+  }
+  
+  .sound-toggle {
+    margin-left: 0.5rem;
+    width: 35px;
+    height: 35px;
   }
 }
 

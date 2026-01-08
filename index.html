@@ -11,6 +11,19 @@
     <link rel="stylesheet" href="gallery.css">
 </head>    
 <body>
+    <!-- Audio Preloader -->
+    <div id="audioPreloader" class="audio-preloader">
+        <div class="preloader-content">
+            <h2>Anna Antonova</h2>
+            <p>Свадебные платья оптом</p>
+            <div class="preloader-buttons">
+                <button id="enterWithAudio" class="preloader-btn">Войти</button>
+                <button id="enterWithoutAudio" class="preloader-btn preloader-btn-ghost">Войти без звука</button>
+            </div>
+        </div>
+    </div>
+
+    <canvas id="pearlCanvas"></canvas>
     <!-- Navigation -->
     <nav>
         <div class="nav-container">
@@ -25,6 +38,13 @@
                 <li><a href="#about">О бренде</a></li>
                 <li><a href="#contact">Контакты</a></li>
             </ul>
+            <button id="soundToggle" class="sound-toggle" title="Переключить звук">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M11 5L6 9H2v6h4l5 4V5z"></path>
+                    <line x1="23" y1="9" x2="17" y2="15"></line>
+                    <line x1="17" y1="9" x2="23" y2="15"></line>
+                </svg>
+            </button>
             <div class="example-2 telegram-center">
                 <div class="icon-content">
                     <a href="https://t.me/+70NUuLXj4Yk0ODZi" target="_blank" rel="noopener" data-social="telegram">
@@ -275,6 +295,7 @@
   </div>
 </div>
 <script src="scripts.js"></script>
+<script src="butterflies.js"></script>
 </body>
 </html>
 
