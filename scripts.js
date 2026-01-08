@@ -230,7 +230,7 @@ contactForm.addEventListener('submit', (e) => {
   // Preload sound pool
   for (let i = 0; i < poolSize; i++) {
     const sound = new Audio(soundFile);
-    sound.volume = 0.4;
+    sound.volume = 0.7;
     sound.preload = 'auto';
     // Force reload to get updated file
     sound.load();
@@ -269,18 +269,20 @@ contactForm.addEventListener('submit', (e) => {
     }
     
     if (availableSound) {
-      // Reset and play immediately
+      // Ensure clean reset - stop completely first
+      availableSound.pause();
       availableSound.currentTime = 0;
-      availableSound.pause(); // Ensure it's stopped
-      availableSound.currentTime = 0; // Reset again
       
-      // Play with minimal delay
-      const playPromise = availableSound.play();
-      if (playPromise !== undefined) {
-        playPromise.catch(err => {
-          // Ignore play errors
-        });
-      }
+      // Use requestAnimationFrame for smoother playback
+      requestAnimationFrame(() => {
+        availableSound.currentTime = 0;
+        const playPromise = availableSound.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(err => {
+            // Ignore play errors
+          });
+        }
+      });
     }
   }
 
