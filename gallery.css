@@ -753,6 +753,15 @@ footer .contact-info {
 	.about-block-reverse {
 		direction: ltr;
 	}
+	/* В мобильной версии всегда: текст первый, фото второе */
+	.about-block .about-text-block,
+	.about-block-reverse .about-text-block {
+		order: 1;
+	}
+	.about-block .about-image-block,
+	.about-block-reverse .about-image-block {
+		order: 2;
+	}
 	.about-text-block {
 		padding: 0;
 	}
