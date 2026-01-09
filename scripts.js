@@ -172,20 +172,42 @@ updateVisibleImages();
 
 // Contact form submission
 const contactForm = document.querySelector('.contact-form');
-contactForm.addEventListener('submit', (e) => {
-   e.preventDefault();
-
-   // Get form data
-   const formData = new FormData(contactForm);
-   const name = formData.get('name');
-
-   // Show success message (in real implementation, this would send to a server)
-   alert(`Thank you ${name}! Your message has been sent. We will get back to you soon.`);
-
-   // Reset form
-   contactForm.reset();
-
-});
+if (contactForm) {
+  contactForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    
+    const submitBtn = contactForm.querySelector('.submit-btn');
+    const originalText = submitBtn.textContent;
+    
+    // Показываем загрузку
+    submitBtn.textContent = 'Отправка...';
+    submitBtn.disabled = true;
+    
+    try {
+      const formData = new FormData(contactForm);
+      const response = await fetch(contactForm.action, {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      });
+      
+      if (response.ok) {
+        // Успешная отправка
+        alert('Спасибо! Ваше сообщение отправлено. Мы свяжемся с вами в ближайшее время.');
+        contactForm.reset();
+      } else {
+        throw new Error('Ошибка отправки');
+      }
+    } catch (error) {
+      alert('Произошла ошибка при отправке. Пожалуйста, попробуйте еще раз или свяжитесь с нами по email.');
+    } finally {
+      submitBtn.textContent = originalText;
+      submitBtn.disabled = false;
+    }
+  });
+}
 (function () {
   const modal = document.getElementById("tgModal");
   if (!modal) {
