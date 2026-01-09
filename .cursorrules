@@ -1,0 +1,6 @@
+# MCP Playwright Configuration
+
+MCP Playwright server is configured and ready to use.
+To use it, restart Cursor after configuration.
+
+Configuration location: ~/Library/Application Support/Cursor/User/settings.json
