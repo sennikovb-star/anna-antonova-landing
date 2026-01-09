@@ -11,15 +11,10 @@
     <link rel="stylesheet" href="gallery.css">
 </head>    
 <body>
-    <!-- Audio Preloader -->
-    <div id="audioPreloader" class="audio-preloader">
-        <div class="preloader-content">
-            <h2>Anna Antonova</h2>
-            <p>Свадебные платья оптом</p>
-            <div class="preloader-buttons">
-                <button id="enterWithAudio" class="preloader-btn">Войти</button>
-                <button id="enterWithoutAudio" class="preloader-btn preloader-btn-ghost">Войти без звука</button>
-            </div>
+    <!-- Preloader -->
+    <div id="preloader" class="preloader">
+        <div class="preloader-pearl">
+            <img src="/images/pearl.png" alt="" class="pearl-image">
         </div>
     </div>
 
@@ -61,9 +56,9 @@
 
     <!-- Hero Section -->
     <section class="hero" id="home">
-        <div class="hero-bg"></div>
-        <div class="hero-bg"></div>
-        <div class="hero-bg"></div>
+        <video class="hero-bg" autoplay muted loop playsinline>
+            <source src="/images/bg.MP4" type="video/mp4">
+        </video>
         <div class="hero-content">
             <h1>Anna Antonova</h1>
             <p>СВАДЕБНЫЕ ПЛАТЬЯ ДЛЯ САЛОНОВ</p>
@@ -85,7 +80,7 @@
     <section class="gallery-container" id="gallery">
         <div class="gallery-grid" id="galleryGrid">
             <!-- A-Силуэт -->
-            <div class="gallery-item tall" data-category="decorations">
+            <div class="gallery-item tall" data-scroll-animation data-category="decorations">
                 <img src="images/MERMAID-5.jpeg" alt="Свадебное платье — Русалка">
                 <div class="gallery-overlay">
                     <h3 class="gallery-title">Модель 01</h3>
@@ -93,7 +88,7 @@
                 </div>
             </div>
 
-            <div class="gallery-item" data-category="decorations">
+            <div class="gallery-item" data-scroll-animation data-category="decorations">
                 <img src="images/MERMAID-1.jpeg" alt="Свадебное платье — современный стиль">
                 <div class="gallery-overlay">
                     <h3 class="gallery-title">Модель 02</h3>
@@ -101,7 +96,7 @@
                 </div>
             </div>
 
-            <div class="gallery-item" data-category="royal">
+            <div class="gallery-item" data-scroll-animation data-category="royal">
                 <img src="images/ROYAL-1.jpeg" alt="Свадебное платье — Королевские">
                 <div class="gallery-overlay">
                     <h3 class="gallery-title">Модель 03</h3>
@@ -109,7 +104,7 @@
                 </div>
             </div>
 
-            <div class="gallery-item" data-category="landscapes">
+            <div class="gallery-item" data-scroll-animation data-category="landscapes">
                 <img src="images/A-SILHOUETTE-2.jpeg" alt="Свадебное платье — A-Силуэт">
                 <div class="gallery-overlay">
                     <h3 class="gallery-title">Модель 04</h3>
@@ -117,7 +112,7 @@
                 </div>
             </div>
 
-            <div class="gallery-item" data-category="royal">
+            <div class="gallery-item" data-scroll-animation data-category="royal">
                 <img src="images/ROYAL-2.jpeg" alt="Свадебное платье — корсетное">
                 <div class="gallery-overlay">
                     <h3 class="gallery-title">Модель 05</h3>
@@ -125,7 +120,7 @@
                 </div>
             </div>
 
-            <div class="gallery-item" data-category="decorations">
+            <div class="gallery-item" data-scroll-animation data-category="decorations">
                 <img src="images/MERMAID-2.jpeg" alt="Свадебное платье — современный стиль">
                 <div class="gallery-overlay">
                     <h3 class="gallery-title">Модель 06</h3>
@@ -133,7 +128,7 @@
                 </div>
             </div>
 
-            <div class="gallery-item" data-category="short">
+            <div class="gallery-item" data-scroll-animation data-category="short">
                 <img src="images/SHORT-1.jpeg" alt="Свадебное платье — Укороченные">
                 <div class="gallery-overlay">
                     <h3 class="gallery-title">Модель 07</h3>
@@ -141,7 +136,7 @@
                 </div>
             </div>
 
-            <div class="gallery-item tall" data-category="decorations">
+            <div class="gallery-item tall" data-scroll-animation data-category="decorations">
                 <img src="images/MERMAID-4.jpeg" alt="Свадебное платье — Русалка">
                 <div class="gallery-overlay">
                     <h3 class="gallery-title">Модель 08</h3>
@@ -149,7 +144,7 @@
                 </div>
             </div>
 
-            <div class="gallery-item" data-category="royal">
+            <div class="gallery-item" data-scroll-animation data-category="royal">
                 <img src="images/ROYAL-3.jpeg" alt="Свадебное платье — корсетное">
                 <div class="gallery-overlay">
                     <h3 class="gallery-title">Модель 09</h3>
@@ -157,7 +152,7 @@
                 </div>
             </div>
 
-            <div class="gallery-item" data-category="short">
+            <div class="gallery-item" data-scroll-animation data-category="short">
                 <img src="images/SHORT-2.jpeg" alt="Свадебное платье — корсетное">
                 <div class="gallery-overlay">
                     <h3 class="gallery-title">Модель 10</h3>
@@ -165,7 +160,7 @@
                 </div>
             </div>
 
-            <div class="gallery-item" data-category="decorations">
+            <div class="gallery-item" data-scroll-animation data-category="decorations">
                 <img src="images/MERMAID-3.jpeg" alt="Свадебное платье — современный стиль">
                 <div class="gallery-overlay">
                     <h3 class="gallery-title">Модель 11</h3>
@@ -173,7 +168,7 @@
                 </div>
             </div>
 
-            <div class="gallery-item" data-category="landscapes">
+            <div class="gallery-item" data-scroll-animation data-category="landscapes">
                 <img src="images/A-SILHOUETTE-1.jpeg" alt="Свадебное платье — A-Силуэт">
                 <div class="gallery-overlay">
                     <h3 class="gallery-title">Модель 12</h3>
@@ -181,7 +176,7 @@
                 </div>
             </div>
 
-            <div class="gallery-item" data-category="short">
+            <div class="gallery-item" data-scroll-animation data-category="short">
                 <img src="images/SHORT-3.jpeg" alt="Свадебное платье — Укороченные">
                 <div class="gallery-overlay">
                     <h3 class="gallery-title">Модель 13</h3>
@@ -209,69 +204,97 @@
     <section class="about-section" id="about">
         <h2>О бренде</h2>
         <div class="about-content">
-            <div class="about-text">
-                <p>Анна Антонова — производитель свадебных платьев оптом для салонов и шоурумов. </p>
-                <p>Производство находится в Иваново. Мы работаем по стандартам качества, обеспечиваем стабильные сроки и аккуратную посадку изделий.</p>
-                <p>Срок производства заказа — 20–30 дней. Отправляем по России и по миру.</p>
-<p>Доступны оптовые коллекции, индивидуальное производство под заказ и адаптация моделей под формат салона.</p>
-                
-                
-            </div>
-            <div>
-                <div class="about-image">
-                    <img src="https://images.unsplash.com/photo-1452802447250-470a88ac82bc?w=800&q=80" alt="Производство свадебных платьев">
+            <!-- Первый блок: текст слева, фото справа -->
+            <div class="about-block">
+                <div class="about-text-block">
+                    <h2>Анна Антонова — не про классический опт. Это пространство бренда.</h2>
+                    <p>Мы не продаём платья коробками.<br>Мы создаём образы, которые продают себя сами.</p>
+                    <p>Анна Антонова — это свадебные и вечерние платья, в которых женщина не выбирает фасон по списку,<br>а узнаёт себя.</p>
+                    <p>Каждое платье начинается не с таблицы размеров,<br>а с простого вопроса:<br>какой она хочет быть в этот день.</p>
                 </div>
-                <div class="about-stats">
-                    <div class="stat-box">
-                        <div class="stat-number">15+</div>
-                        <div class="stat-label">Лет</div>
-                        <div class="stat-label">Опыта</div>
-                    </div>
-                    <div class="stat-box">
-                        <div class="stat-number">B2B</div>
-                        <div class="stat-label">Оптовые поставки</div>
+                <div class="about-image-block">
+                    <div class="about-image">
+                        <img src="/images/about-1.JPG" alt="Анна Антонова">
                     </div>
                 </div>
             </div>
+
+            <!-- Второй блок: фото слева, текст справа -->
+            <div class="about-block about-block-reverse">
+                <div class="about-image-block">
+                    <div class="about-image">
+                        <img src="/images/about-2.JPG" alt="Анна Антонова">
+                    </div>
+                </div>
+                <div class="about-text-block">
+                    <h2>Подход и детали</h2>
+                    <p>Для нас важна архитектура корсета, а не просто лиф.<br>Посадка, которая подчёркивает достоинства, а не маскирует ошибки.<br>Чистые линии, благородные ткани, ощущение тишины и сдержанного люкса.<br>Платья, которые выглядят дорого без перегруза декором.</p>
+                    <p>Мы работаем осознанно и выборочно.<br>Нам важны не объёмы, а люди, с которыми мы работаем.</p>
+                </div>
+            </div>
+
+            <!-- Третий блок: текст слева, фото справа -->
+            <div class="about-block">
+                <div class="about-text-block">
+                    <h2>Партнёрство</h2>
+                    <p>С нами работают салоны, которые не хотят быть «как все».<br>Которые умеют продавать ценность, а не скидку.<br>Создают атмосферу, а не поток.<br>Думают в категории образа, статуса и ощущения.</p>
+                    <p>Коллекции бренда ограничены.<br>Возможны региональные эксклюзивы.<br>Мы гибко подходим к рынкам и городам.<br>Мы не демпингуем и бережём сегмент наших партнёров.</p>
+                    <p>Анна Антонова — это выбор салонов,<br>которые хотят, чтобы клиентка сказала:<br>«Я сразу поняла — это моё платье».</p>
+                </div>
+                <div class="about-image-block">
+                    <div class="about-image">
+                        <img src="/images/about-3.JPG" alt="Анна Антонова">
+                    </div>
+                </div>
+            </div>
+
         </div>
     </section>
 
     <!-- Contact Section -->
     <section class="contact-section" id="contact">
-        <h2>Связаться</h2>
-        <p>Оставьте заявку — пришлём условия и прайс для опта</p>
+        <div class="about-block">
+            <!-- Форма слева -->
+            <div class="about-text-block">
+                <form class="contact-form">
+                    <div class="form-group">
+                        <input type="text" id="name" name="name" placeholder="Имя" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="email" name="email" placeholder="Email" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea id="message" name="message" placeholder="Сообщение" required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Отправить</button>
+                </form>
+            </div>
 
-        <form class="contact-form">
-            <div class="form-group">
-                <label for="name">Имя</label>
-                <input type="text" id="name" name="name" required>
-            </div>
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" required>
-            </div>
-            <div class="form-group">
-                <label for="message">Сообщение</label>
-                <textarea id="message" name="message" required></textarea>
-            </div>
-            <button type="submit" class="submit-btn">Отправить</button>
-        </form>
-
-        <div class="contact-info">
-            <div class="contact-item">
-                <span>📧</span>
-                <a href="mailto:wedding37@yandex.ru">wedding37@yandex.ru</a>
-            </div>
-            <div class="contact-item">
-                <span>📍</span>
-                <a href="https://www.google.com/maps/search/?api=1&query=Ivanovo+Russia" target="_blank">Иваново, Россия</a>
+            <!-- Подпись справа (как фото в шахматном порядке) -->
+            <div class="about-image-block">
+                <div class="about-signature-block">
+                    <p>Если вам близок этот подход —<br>добро пожаловать.<br>Здесь начинается другой уровень опта.</p>
+                    <p class="about-signature">🤍<br>Анна Антонова<br><span class="about-role">Designer | Founder</span></p>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
     <footer>
-        <p>© 2019 Anna Antonova </p>
+        <div class="footer-content">
+            <p>© 2019 Anna Antonova</p>
+            <div class="contact-info">
+                <div class="contact-item">
+                    <span>📧</span>
+                    <a href="mailto:wedding37@yandex.ru">wedding37@yandex.ru</a>
+                </div>
+                <div class="contact-item">
+                    <span>📍</span>
+                    <a href="https://www.google.com/maps/search/?api=1&query=Ivanovo+Russia" target="_blank">Иваново, Россия</a>
+                </div>
+            </div>
+        </div>
     </footer>
     <!-- Telegram Modal -->
 <div class="tg-modal" id="tgModal" aria-hidden="true">
@@ -296,6 +319,20 @@
 </div>
 <script src="scripts.js"></script>
 <script src="butterflies.js"></script>
+
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+    (function(m,e,t,r,i,k,a){
+        m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};
+        m[i].l=1*new Date();
+        for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}
+        k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)
+    })(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=106178509', 'ym');
+
+    ym(106178509, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", accurateTrackBounce:true, trackLinks:true});
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/106178509" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
 </body>
 </html>
 

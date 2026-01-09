@@ -187,27 +187,39 @@ contactForm.addEventListener('submit', (e) => {
 
 });
 (function () {
-  const KEY = "tg_modal_shown_v1";
   const modal = document.getElementById("tgModal");
-  if (!modal) return;
+  if (!modal) {
+    console.warn("Telegram modal not found in DOM");
+    return;
+  }
+
+  let timeoutId = null;
 
   function openModal() {
+    console.log("Opening Telegram modal");
     modal.classList.add("is-open");
     modal.setAttribute("aria-hidden", "false");
     document.documentElement.style.overflow = "hidden";
   }
 
   function closeModal() {
+    console.log("Closing Telegram modal");
     modal.classList.remove("is-open");
     modal.setAttribute("aria-hidden", "true");
     document.documentElement.style.overflow = "";
-    try { sessionStorage.setItem(KEY, "1"); } catch (e) {}
+    
+    // Очищаем предыдущий таймер, если есть
+    if (timeoutId) {
+      clearTimeout(timeoutId);
+    }
+    
+    // Показываем модальное окно снова через 20 секунд
+    console.log("Telegram modal will open again in 20 seconds");
+    timeoutId = setTimeout(openModal, 20000);
   }
 
-  try {
-    if (sessionStorage.getItem(KEY) === "1") return;
-  } catch (e) {}
-
+  // Первое появление через 12 секунд
+  console.log("Telegram modal will open in 12 seconds");
   setTimeout(openModal, 12000);
 
   modal.addEventListener("click", (e) => {
@@ -217,6 +229,24 @@ contactForm.addEventListener('submit', (e) => {
   document.addEventListener("keydown", (e) => {
     if (e.key === "Escape" && modal.classList.contains("is-open")) closeModal();
   });
+
+  // Открытие модального окна при клике на контакты в футере
+  const contactLinks = document.querySelectorAll("footer .contact-item a");
+  contactLinks.forEach(link => {
+    link.addEventListener("click", (e) => {
+      e.preventDefault();
+      openModal();
+    });
+  });
+
+  // Открытие модального окна при клике на "Контакты" в шапке меню
+  const contactsNavLink = document.querySelector('nav a[href="#contact"]');
+  if (contactsNavLink) {
+    contactsNavLink.addEventListener("click", (e) => {
+      e.preventDefault();
+      openModal();
+    });
+  }
 })();
 
 // Hover Sound Effect
@@ -292,7 +322,6 @@ contactForm.addEventListener('submit', (e) => {
     'button',
     '.gallery-item',
     '.filter-btn',
-    '.preloader-btn',
     '.tg-btn',
     '.sound-toggle',
     '.icon-content a',
@@ -336,66 +365,98 @@ contactForm.addEventListener('submit', (e) => {
   });
 })();
 
-// Audio System
+// Preloader and Audio System
 (function() {
-  const audioPreloader = document.getElementById('audioPreloader');
-  const enterWithAudio = document.getElementById('enterWithAudio');
-  const enterWithoutAudio = document.getElementById('enterWithoutAudio');
+  const preloader = document.getElementById('preloader');
   const soundToggle = document.getElementById('soundToggle');
+  const body = document.body;
   
-  if (!audioPreloader) return;
+  // Добавляем класс loading на body
+  body.classList.add('loading');
 
   const audio = new Audio('/sounds/841334__josefpres__piano-loops-199-octave-down-short-loop-120-bpm.wav');
   audio.loop = true;
   audio.volume = 0.15;
   
-  let isSoundEnabled = false;
-  let hasEntered = false;
-
-  function hidePreloader() {
-    audioPreloader.style.opacity = '0';
-    setTimeout(() => {
-      audioPreloader.style.display = 'none';
-      hasEntered = true;
-    }, 500);
-  }
+  let isSoundEnabled = true; // Включаем звук по умолчанию
+  let audioStarted = false;
+  let pageLoaded = false;
 
   function playAudio() {
-    if (isSoundEnabled) {
-      audio.play().catch(err => {
-        console.log('Audio play failed:', err);
-      });
+    if (isSoundEnabled && !audioStarted) {
+      const playPromise = audio.play();
+      if (playPromise !== undefined) {
+        playPromise.then(() => {
+          audioStarted = true;
+          console.log('Audio started');
+        }).catch(err => {
+          console.log('Audio play failed:', err);
+        });
+      }
     }
   }
 
   function stopAudio() {
     audio.pause();
     audio.currentTime = 0;
+    audioStarted = false;
   }
 
-  function showSoundToggle() {
-    if (soundToggle) {
-      setTimeout(() => {
-        soundToggle.style.display = 'flex';
-      }, 500);
+  function hidePreloader() {
+    if (!preloader) return;
+    
+    // Убираем blur с body
+    body.classList.remove('loading');
+    
+    // Скрываем прелоадер
+    setTimeout(() => {
+      preloader.classList.add('hidden');
+    }, 500);
+  }
+
+  // Функция для запуска музыки при первом взаимодействии
+  function startAudioOnInteraction() {
+    if (!audioStarted && isSoundEnabled) {
+      playAudio();
     }
   }
 
-  enterWithAudio.addEventListener('click', () => {
-    isSoundEnabled = true;
-    hidePreloader();
-    showSoundToggle();
+  // Добавляем обработчики для запуска музыки при первом взаимодействии
+  document.addEventListener('click', startAudioOnInteraction, { once: true, passive: true });
+  document.addEventListener('touchstart', startAudioOnInteraction, { once: true, passive: true });
+  document.addEventListener('mousemove', startAudioOnInteraction, { once: true, passive: true });
+  document.addEventListener('scroll', startAudioOnInteraction, { once: true, passive: true });
+
+  // Показываем toggle сразу
+  if (soundToggle) {
+    soundToggle.style.display = 'flex';
+    soundToggle.classList.add('sound-on');
+    soundToggle.innerHTML = `
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M11 5L6 9H2v6h4l5 4V5z"></path>
+        <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+      </svg>
+    `;
+  }
+
+  // Ждем загрузки всех ресурсов
+  window.addEventListener('load', () => {
+    pageLoaded = true;
+    // Скрываем прелоадер - музыка запустится внутри hidePreloader
     setTimeout(() => {
-      playAudio();
-    }, 100);
+      hidePreloader();
+    }, 500);
   });
 
-  enterWithoutAudio.addEventListener('click', () => {
-    isSoundEnabled = false;
-    hidePreloader();
-    showSoundToggle();
-  });
+  // Если все уже загружено
+  if (document.readyState === 'complete') {
+    pageLoaded = true;
+    setTimeout(() => {
+      hidePreloader();
+    }, 500);
+  }
 
+  // Toggle звука
   if (soundToggle) {
     soundToggle.addEventListener('click', () => {
       isSoundEnabled = !isSoundEnabled;
@@ -421,8 +482,76 @@ contactForm.addEventListener('submit', (e) => {
         `;
       }
     });
-    
-    // Hide toggle until user enters
-    soundToggle.style.display = 'none';
   }
+})();
+
+// Scroll Animation Effect для каждой Gallery Item отдельно
+(function() {
+  'use strict';
+  
+  const scrollAnimationElements = document.querySelectorAll('[data-scroll-animation]');
+  if (scrollAnimationElements.length === 0) return;
+  
+  let rafId = null;
+  let isMobile = window.innerWidth <= 768;
+  
+  window.addEventListener('resize', () => {
+    isMobile = window.innerWidth <= 768;
+  });
+  
+  function getScaleDimensions() {
+    return isMobile ? [0.7, 0.9] : [1.05, 1];
+  }
+  
+  function calculateScrollProgress(element) {
+    const rect = element.getBoundingClientRect();
+    const windowHeight = window.innerHeight;
+    const elementTop = rect.top;
+    const elementHeight = rect.height;
+    
+    if (elementTop < windowHeight && elementTop + elementHeight > 0) {
+      const scrollStart = -elementHeight * 0.5;
+      const scrollEnd = windowHeight + elementHeight * 0.5;
+      const scrollRange = scrollEnd - scrollStart;
+      const currentScroll = windowHeight - elementTop;
+      
+      const progress = Math.max(0, Math.min(1, (currentScroll - scrollStart) / scrollRange));
+      return progress;
+    }
+    
+    return elementTop < 0 ? 1 : 0;
+  }
+  
+  function updateScrollAnimations() {
+    scrollAnimationElements.forEach(element => {
+      const progress = calculateScrollProgress(element);
+      
+      const rotate = 20 * (1 - progress);
+      const scaleDimensions = getScaleDimensions();
+      const scale = scaleDimensions[0] + (scaleDimensions[1] - scaleDimensions[0]) * progress;
+      const translate = -100 * (1 - progress);
+      
+      element.style.transform = `rotateX(${rotate}deg) scale(${scale}) translateY(${translate}px)`;
+      
+      const shadowIntensity = progress;
+      element.style.boxShadow = `
+        0 0 rgba(0, 0, 0, ${0.3 * shadowIntensity}),
+        0 ${9 * shadowIntensity}px ${20 * shadowIntensity}px rgba(0, 0, 0, ${0.29 * shadowIntensity}),
+        0 ${37 * shadowIntensity}px ${37 * shadowIntensity}px rgba(0, 0, 0, ${0.26 * shadowIntensity}),
+        0 ${84 * shadowIntensity}px ${50 * shadowIntensity}px rgba(0, 0, 0, ${0.15 * shadowIntensity}),
+        0 ${149 * shadowIntensity}px ${60 * shadowIntensity}px rgba(0, 0, 0, ${0.04 * shadowIntensity}),
+        0 ${233 * shadowIntensity}px ${65 * shadowIntensity}px rgba(0, 0, 0, ${0.01 * shadowIntensity})
+      `;
+    });
+    
+    rafId = requestAnimationFrame(updateScrollAnimations);
+  }
+  
+  updateScrollAnimations();
+  
+  window.addEventListener('scroll', () => {
+    if (!rafId) {
+      updateScrollAnimations();
+    }
+  }, { passive: true });
 })();
