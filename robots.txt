@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://anna-antonova.ru/sitemap.xml
+Sitemap: https://antonova-anna.ru/sitemap.xml
